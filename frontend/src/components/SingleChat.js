@@ -15,7 +15,7 @@ import animationData from "../animations/typing.json";
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
-const ENDPOINT = "http://localhost:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+const ENDPOINT = "https://chat-app-easyjob.herokuapp.com/"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -90,6 +90,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           config
         );
         socket.emit("new message", data);
+        //Append data
         setMessages([...messages, data]);
       } catch (error) {
         toast({
@@ -147,7 +148,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       socket.emit("typing", selectedChat._id);
     }
     let lastTypingTime = new Date().getTime();
-    var timerLength = 3000;
+    var timerLength = 10000;
     setTimeout(() => {
       var timeNow = new Date().getTime();
       var timeDiff = timeNow - lastTypingTime;
@@ -229,6 +230,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             >
               {istyping ? (
                 <div>
+                  {/* <p>A escrever...</p> */}
                   <Lottie
                     options={defaultOptions}
                     // height={50}
